@@ -1,8 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    List<string>  ola = new List<string> (){
+        "MT-07",
+        "MT-09",
+        "MT-15",
+        "MT-10",
+
+    };
+
+    string img = "https://www.yamaha-motor.com.br/file/v972548829457220531/products/lateral-mtseries-mt07-321-abs-30119-fx01-img-01-v02-desktop.jpg";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="text-center">MOTOS </h1>
+<div class="container">
+    <div class="row ">
+
+        @foreach (string element in ola)
+        {
+           
+               
+                    <div class=" col-md-4 mb-3" >
+                        <div class="card">
+                            <img src="@img" class="card-img-top " alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">@element</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text"><small class="text-text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+               
+            
+              /* <div class="d-flex  card  col-md-4 m-1">
+                <img src="@img" class="card-img-top rounded-circle mx-auto" alt="Imagem da moto">
+                <div class="card-body">
+                    <h5 class="card-title">Entre no modo aventura.</h5>
+                    <p class="card-text">Confira os detalhes da Nova @element.</p>
+                    
+                </div>
+            </div>
+            */
+        }
+    </div>
 </div>
+
