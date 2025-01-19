@@ -15,13 +15,14 @@
 <input type="text" id="searchInput" placeholder="Pesquisar motos">
 
 <div class="container">
-    <div class="row " id="motoList">
 
+    <ul id="motoList">
+    
         @foreach (string element in ola)
         {
 
-
-            <div class="col-md-4 mb-3" id="motoList">
+           <li>
+            <div class="col-md-4 mb-3" >
                         <div class="moto-item  card" >
                             <img src="@img" class="card-img-top " alt="...">
                             <div class="card-body">
@@ -31,8 +32,8 @@
                             </div>
                         </div>
                     </div>
-               
-            
+
+            </li>
               /* <div class="d-flex  card  col-md-4 m-1">
                 <img src="@img" class="card-img-top rounded-circle mx-auto" alt="Imagem da moto">
                 <div class="card-body">
@@ -43,23 +44,30 @@
             </div>
             */
         }
-    </div>
+    </ul>
+
 </div>
 
-
 <script>
-    $(document).ready(function() {
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#motoList #moto-item").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            })
-            .sort(function(a, b) {
-                var aName = $(a).text().toLowerCase();
-                var bName = $(b).text().toLowerCase();
-                return aName.indexOf(value) - bName.indexOf(value);
-            })
-            .appendTo("#motoList");
+ $(document).ready(function() {
+    $("#searchInput").on("keyup", function() {
+        var searchTerm = $(this).val().toLowerCase();
+
+        $("#motoList li").filter(function() {
+            var $this = $(this); 
+            var motoName = $this.find('h5.card-title').text().toLowerCase();
+            return motoName.includes(searchTerm);
+        })
+        .sort(function(a, b) {
+            return $(a).text().localeCompare($(b).text()); 
+        })
+        .get() // Converte para array
+        .reverse() // Inverte a ordem
+        .forEach(function(item) { 
+            $(item).show(); // Mostra os elementos filtrados e ordenados
         });
+
+        $("#motoList li").not(":visible").hide(); // Oculta os elementos não filtrados
     });
+});
 </script>
