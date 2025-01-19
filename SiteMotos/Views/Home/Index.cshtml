@@ -13,57 +13,46 @@
     string img = "https://www.yamaha-motor.com.br/file/v972548829457220531/products/lateral-mtseries-mt07-321-abs-30119-fx01-img-01-v02-desktop.jpg";
 }
 
-<h1 class="text-center">MOTOS </h1>
-<input type="text" id="searchInput" placeholder="Pesquisar motos">
+<h1 class="text-center">MOTOS</h1>
+<div class="text-center mb-4">
+    <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Pesquisar motos">
+</div>
 
 <div class="container">
-
     <div class="row" id="motoList">
-
         @foreach (string element in ola)
         {
-
-            
-                
-                <div id="moto" class="card col-md-3 mb-3 m-3">
-                    <img src="@img" class="card-img-top " alt="...">
-                    <h5 class="card-title">@element</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-text-muted">Last updated 3 mins ago</small></p>
+            <div class="col-md-4 mb-3 moto-item">
+                <div class="card h-100">
+                    <img src="@img" class="card-img-top" alt="@element">
+                    <div class="card-body">
+                        <h5 class="card-title">@element</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
                 </div>
-           
-
-            /* <div class="d-flex  card  col-md-4 m-1">
-            <img src="@img" class="card-img-top rounded-circle mx-auto" alt="Imagem da moto">
-            <div class="card-body">
-            <h5 class="card-title">Entre no modo aventura.</h5>
-            <p class="card-text">Confira os detalhes da Nova @element.</p>
-
             </div>
-            </div>
-            */
         }
+        
     </div>
-
 </div>
 
 <script>
-      $(document).ready(function() {
-        $("#searchInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
             var searchTerm = $(this).val().toLowerCase();
 
-            $("#motoList div").filter(function() {
-                var motoName = $(this).find('h5.card-title').text().toLowerCase();
-                return motoName.includes(searchTerm);
-            })
-            .sort(function(a, b) {
-                return $(a).text().localeCompare($(b).text());
-            })
-            .appendTo("#motoList");
+            // Filtrar itens visíveis pelo texto
+            $(".moto-item").filter(function () {
+                $(this).toggle($(this).find('h5.card-title').text().toLowerCase().indexOf(searchTerm) > -1);
+            });
+
+            // Selecionar itens visíveis e inverter a ordem
+            var visibleItems = $(".moto-item:visible").get(); // Obtem os itens visíveis
+            visibleItems.reverse(); // Inverte a ordem
+
+            // Realocar os itens invertidos no container
+            $("#motoList").append(visibleItems);
         });
     });
-     
-
-
 </script>
-
