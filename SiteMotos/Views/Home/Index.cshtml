@@ -1,10 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    List<string>  ola = new List<string> (){
+    List<string> ola = new List<string>(){
         "MT-07",
         "MT-09",
         "MT-15",
         "MT-10",
+        "FZ-15",
+        "FZ-25",
 
     };
 
@@ -16,35 +18,32 @@
 
 <div class="container">
 
-    <ul id="motoList">
-    
+    <div class="row" id="motoList">
+
         @foreach (string element in ola)
         {
 
-           <li>
-            <div class="col-md-4 mb-3" >
-                        <div class="moto-item  card" >
-                            <img src="@img" class="card-img-top " alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">@element</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                                <p class="card-text"><small class="text-text-muted">Last updated 3 mins ago</small></p>
-                            </div>
-                        </div>
-                    </div>
-
-            </li>
-              /* <div class="d-flex  card  col-md-4 m-1">
-                <img src="@img" class="card-img-top rounded-circle mx-auto" alt="Imagem da moto">
-                <div class="card-body">
-                    <h5 class="card-title">Entre no modo aventura.</h5>
-                    <p class="card-text">Confira os detalhes da Nova @element.</p>
-                    
+            
+                
+                <div id="moto" class="card col-md-3 mb-3 m-3">
+                    <img src="@img" class="card-img-top " alt="...">
+                    <h5 class="card-title">@element</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-text-muted">Last updated 3 mins ago</small></p>
                 </div>
+           
+
+            /* <div class="d-flex  card  col-md-4 m-1">
+            <img src="@img" class="card-img-top rounded-circle mx-auto" alt="Imagem da moto">
+            <div class="card-body">
+            <h5 class="card-title">Entre no modo aventura.</h5>
+            <p class="card-text">Confira os detalhes da Nova @element.</p>
+
+            </div>
             </div>
             */
         }
-    </ul>
+    </div>
 
 </div>
 
@@ -53,7 +52,7 @@
         $("#searchInput").on("keyup", function() {
             var searchTerm = $(this).val().toLowerCase();
 
-            $("#motoList li").filter(function() {
+            $("#motoList div").filter(function() {
                 var motoName = $(this).find('h5.card-title').text().toLowerCase();
                 return motoName.includes(searchTerm);
             })
@@ -63,4 +62,8 @@
             .appendTo("#motoList");
         });
     });
+     
+
+
 </script>
+
