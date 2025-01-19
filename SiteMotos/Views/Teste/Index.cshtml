@@ -1,0 +1,30 @@
+﻿@model IEnumerable<string>
+
+
+<input type="text" id="searchInput" placeholder="Pesquisar motos">
+
+<div id="motoList">
+    @foreach (var moto in Model)
+    {
+        <div class="moto-item">
+            @moto
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#motoList .moto-item").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            })
+            .sort(function(a, b) {
+                var aName = $(a).text().toLowerCase();
+                var bName = $(b).text().toLowerCase();
+                return aName.indexOf(value) - bName.indexOf(value);
+            })
+            .appendTo("#motoList");
+        });
+    });
+</script>

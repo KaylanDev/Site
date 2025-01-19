@@ -12,15 +12,17 @@
 }
 
 <h1 class="text-center">MOTOS </h1>
+<input type="text" id="searchInput" placeholder="Pesquisar motos">
+
 <div class="container">
-    <div class="row ">
+    <div class="row " id="motoList">
 
         @foreach (string element in ola)
         {
-           
-               
-                    <div class=" col-md-4 mb-3" >
-                        <div class="card">
+
+
+            <div class="col-md-4 mb-3" id="motoList">
+                        <div class="moto-item  card" >
                             <img src="@img" class="card-img-top " alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">@element</h5>
@@ -44,3 +46,20 @@
     </div>
 </div>
 
+
+<script>
+    $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#motoList #moto-item").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            })
+            .sort(function(a, b) {
+                var aName = $(a).text().toLowerCase();
+                var bName = $(b).text().toLowerCase();
+                return aName.indexOf(value) - bName.indexOf(value);
+            })
+            .appendTo("#motoList");
+        });
+    });
+</script>
