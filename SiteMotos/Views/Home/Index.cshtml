@@ -49,25 +49,18 @@
 </div>
 
 <script>
- $(document).ready(function() {
-    $("#searchInput").on("keyup", function() {
-        var searchTerm = $(this).val().toLowerCase();
+      $(document).ready(function() {
+        $("#searchInput").on("keyup", function() {
+            var searchTerm = $(this).val().toLowerCase();
 
-        $("#motoList li").filter(function() {
-            var $this = $(this); 
-            var motoName = $this.find('h5.card-title').text().toLowerCase();
-            return motoName.includes(searchTerm);
-        })
-        .sort(function(a, b) {
-            return $(a).text().localeCompare($(b).text()); 
-        })
-        .get() // Converte para array
-        .reverse() // Inverte a ordem
-        .forEach(function(item) { 
-            $(item).show(); // Mostra os elementos filtrados e ordenados
+            $("#motoList li").filter(function() {
+                var motoName = $(this).find('h5.card-title').text().toLowerCase();
+                return motoName.includes(searchTerm);
+            })
+            .sort(function(a, b) {
+                return $(a).text().localeCompare($(b).text());
+            })
+            .appendTo("#motoList");
         });
-
-        $("#motoList li").not(":visible").hide(); // Oculta os elementos não filtrados
     });
-});
 </script>
