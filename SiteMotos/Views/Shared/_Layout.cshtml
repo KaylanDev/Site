@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SiteMotos.styles.css" asp-append-version="true" />
+      <style>
+        body {
+            background-color: #f0f0f0; /* Cor de fundo principal */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .oval {
+            width: 400px;
+            height: 200px;
+            background: linear-gradient(to bottom right, #333, #666);
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
+
 <body>
+  
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -30,11 +47,14 @@
             </div>
         </nav>
     </header>
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    <div class="oval"></div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
