@@ -1,30 +1,122 @@
-﻿@model IEnumerable<string>
-
-
-<input type="text" id="searchInput" placeholder="Pesquisar motos">
-
-<div id="motoList">
-    @foreach (var moto in Model)
-    {
-        <div class="moto-item">
-            @moto
-        </div>
-    }
+﻿<!-- From Uiverse.io by gharsh11032000 -->
+<div class="card">
+    <button class="button">
+    <p>MT-09</p>
+    </button>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><img src="https://www.yamaha-motor.com.br/file/v4092077966796018393/products/lateral-mtseries-mt09-321-abs-30120-fx01-img-01-v01-desktop.jpg" alt="Alternate Text" width="100%" height="100%"/></svg>
+    <div class="card__content">
+        <p class="card__title">
+            Card Title
+        </p><p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $("#searchInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#motoList .moto-item").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            })
-            .sort(function(a, b) {
-                var aName = $(a).text().toLowerCase();
-                var bName = $(b).text().toLowerCase();
-                return aName.indexOf(value) - bName.indexOf(value);
-            })
-            .appendTo("#motoList");
-        });
-    });
-</script>
+<style>
+    /* From Uiverse.io by gharsh11032000 */
+
+    /* From Uiverse.io by adamgiebl */
+    /* Inspired by twitter.com/marina_uiux */
+
+    .button {
+        font-size: 17px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgb(56, 56, 56) 0%, rgb(36, 36, 36) 66%, rgb(41, 41, 41) 100%);
+        color: rgb(218, 218, 218);
+        border: none;
+       
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        width: 80%;
+       
+    }
+
+    .button p {
+      margin-bottom: 12px;
+    }
+        
+
+
+    .button-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-conic-gradient(rgb(48, 47, 47) 0.0000001%, rgb(51, 51, 51) 0.000104%) 60% 60%/600% 600%;
+        filter: opacity(10%) contrast(105%);
+        -webkit-filter: opacity(10%) contrast(105%);
+    }
+
+    
+
+    .card {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+   .BordaH2{
+      border-radius: 10px;
+      height: 40%;
+      padding: 3px;
+   }
+  
+        .card svg {
+            width: 48px;
+            fill: #333;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            
+        }
+
+        .card:hover {
+            transform:  scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+    .card__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #fff;
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .card:hover .card__content {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    .card__title {
+        margin: 0;
+        font-size: 24px;
+        color: #333;
+        font-weight: 700;
+    }
+
+    .card__description {
+        margin: 10px 0 0;
+        font-size: 14px;
+        color: #777;
+        line-height: 1.4;
+    }
+
+    .card:hover svg {
+        scale: 0;
+        
+    }
+
+
+</style>

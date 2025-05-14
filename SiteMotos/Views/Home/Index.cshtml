@@ -1,42 +1,160 @@
-﻿﻿@{
+﻿@model IEnumerable<SiteMotos.Models.Motos>
+﻿
+
+@{
     ViewData["Title"] = "Home Page";
-    List<string> ola = new List<string>(){
-        "MT-07",
-        "MT-09",
-        "MT-15",
-        "MT-10",
-        "FZ-15",
-        "FZ-25",
-
-    };
-
-    string img = "https://www.yamaha-motor.com.br/file/v972548829457220531/products/lateral-mtseries-mt07-321-abs-30119-fx01-img-01-v02-desktop.jpg";
 }
 
+<style>
+  
+   
+    /* From Uiverse.io by gharsh11032000 */
+    /* From Uiverse.io by adamgiebl */
+    /* Inspired by twitter.com/marina_uiux */
+    .button {
+        font-size: 17px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgb(56, 56, 56) 0%, rgb(36, 36, 36) 66%, rgb(41, 41, 41) 100%);
+        color: rgb(218, 218, 218);
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        width: 80%;
+    }
+
+    .button p {
+        margin-bottom: 12px;
+    }
+
+
+
+    .button-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-conic-gradient(rgb(48, 47, 47) 0.0000001%, rgb(51, 51, 51) 0.000104%) 60% 60%/600% 600%;
+        filter: opacity(10%) contrast(105%);
+        -webkit-filter: opacity(10%) contrast(105%);
+    }
+
+
+
+    .card {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100% );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .BordaH2 {
+        border-radius: 10px;
+        height: 40%;
+        padding: 3px;
+    }
+
+    .card svg {
+        width: 48px;
+        fill: #333;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .card:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #fff;
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    .card:hover .card__content {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    .card__title {
+        margin: 0;
+        font-size: 24px;
+        color: #333;
+        font-weight: 700;
+    }
+
+    .card__description {
+        margin: 10px 0 0;
+        font-size: 14px;
+        color: #777;
+        line-height: 1.4;
+    }
+
+    .card:hover svg {
+        scale: 0;
+    }
+
+
+
+
+</style>
+
 <h1 class="text-center">MOTOS</h1>
+
+
+
 <div class="text-center mb-4">
     <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Pesquisar motos">
 </div>
 
-<div class="container">
-    <div class="row" id="motoList">
-        @foreach (string element in ola)
-        {
-            <div class="col-md-4 mb-3 moto-item">
-                <div class="card h-100">
-                    <img src="@img" class="card-img-top" alt="@element">
-                    <div class="card-body">
-                        <h5 class="card-title">@element</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additilllonal content.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+@if (Model is null)
+{
+    <h1>Erro</h1>
+}
+else
+{
+
+    <div class="container">
+        <div class="row" id="motoList">
+            @foreach (var element in Model)
+            {
+                
+                <div class="col-md-4 mb-3 moto-item">
+                   
+                    
+
+                    <div class="card">
+                        <button class="button">
+                            <p class="card-title">@element.Modelo</p>
+                        </button>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><img src="@element.Imagem" alt="Alternate Text" width="100%" height="100%" /></svg>
+                        <div class="card__content">
+                            <p class="card__title">
+                                Card Title
+                            </p><p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                        </div>
                     </div>
+
                 </div>
-            </div>
-        }
-
-
+            }
+        </div>
     </div>
-</div>
+}
 
 <script>
     $(document).ready(function () {
@@ -45,7 +163,7 @@
 
             // Filtrar itens visíveis pelo texto
             $(".moto-item").filter(function () {
-                $(this).toggle($(this).find('h5.card-title').text().toLowerCase().indexOf(searchTerm) > -1);
+                $(this).toggle($(this).find('p.card-title').text().toLowerCase().indexOf(searchTerm) > -1);
             });
 
             // Selecionar itens visíveis e inverter a ordem

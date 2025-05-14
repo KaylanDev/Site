@@ -1,21 +1,28 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SiteMotos.Models;
+using SiteMotos.Services;
 
 namespace SiteMotos.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IMotos _motos;
+        
+        public HomeController(ILogger<HomeController> logger,IMotos moto)
         {
             _logger = logger;
+            _motos = moto;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+         
+
+            return View(await _motos.GetAll());
         }
 
         public IActionResult Privacy()
