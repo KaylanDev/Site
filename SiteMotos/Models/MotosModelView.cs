@@ -2,10 +2,10 @@
 
 namespace SiteMotos.Models
 {
-    public class Motos
+    public class MotosModelView
     {
         [JsonConstructor]
-        public Motos(int id, string? modelo, int potencia, decimal preco, string marca, string? imagem)
+        public MotosModelView(int id, string? modelo, int potencia, decimal preco, string marca, string? imagem)
         {
             Id = id;
             Modelo = modelo;

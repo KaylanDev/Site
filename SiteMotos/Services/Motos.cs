@@ -9,34 +9,65 @@ namespace SiteMotos.Services
 {
     public class Motos : IMotos
     {
+        private IEnumerable<MotosModelView> MotosVW { get; set; } = new List<MotosModelView>();
+        private Motos MotoVW { get; set; }
+
+        private const string BaseUrl = "/MotosM";
+
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly JsonSerializerOptions _options;
         private readonly ILogger<Motos> _logger;
 
         public Motos(IHttpClientFactory httpClientFactory, ILogger<Motos> logger)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
+            _options = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+      
+            };
         }
 
-        public async Task<IEnumerable<Models.Motos>> GetAll()
+        public Task<bool> DeleteAsync(int id)
         {
-            using HttpClient client = _httpClientFactory.CreateClient();
+            throw new NotImplementedException();
+        }
 
-            try
+        public async Task<IEnumerable<MotosModelView>> GetAll()
+        {
+            var client = _httpClientFactory.CreateClient("Motos");
+
+            using (var response = await client.GetAsync(BaseUrl))
             {
-                var moto = await client.GetFromJsonAsync<IEnumerable<Models.Motos>>($"https://localhost:7213/MotosM", new JsonSerializerOptions
+                if (response.IsSuccessStatusCode)
                 {
-                    PropertyNameCaseInsensitive = true
-                });
+                    var content = await response.Content.ReadAsStreamAsync();
+                    MotosVW = await JsonSerializer.DeserializeAsync<IEnumerable<MotosModelView>>(content, _options);
 
-                return moto;
+                }
+                else
+                {
+                    _logger.LogError("Error fetching data from API");
+                    return Enumerable.Empty<MotosModelView>();
+                }
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao obter dados das motos");
-            }
+            return MotosVW;
+        }
 
-            return Enumerable.Empty<Models.Motos>();
+        public Task<MotosModelView> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MotosModelView> PostAsync(MotosModelView moto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> PutAsync(int id, MotosModelView moto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

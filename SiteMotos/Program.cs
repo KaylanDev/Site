@@ -4,7 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("Motos", c =>
+    c.BaseAddress = new Uri(builder.Configuration["UriApis:Motos"]));
+
 builder.Services.AddSingleton<IMotos, Motos>();
 
 var app = builder.Build();
@@ -29,3 +31,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
