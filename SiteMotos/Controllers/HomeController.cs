@@ -16,7 +16,7 @@ namespace SiteMotos.Controllers
             _logger = logger;
             _motos = moto;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
 
@@ -25,9 +25,24 @@ namespace SiteMotos.Controllers
             return View(await _motos.GetAll());
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Post()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(MotosModelView moto)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _motos.PostAsync(moto);
+                if (response is not null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

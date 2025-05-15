@@ -1,0 +1,42 @@
+﻿@model MotosModelView
+
+
+<form asp-action="Post">
+    
+    <div class="row-cols-1">
+    <div>    <label asp-for="Modelo"></label>
+        <input asp-for="Modelo">
+    <span asp-validation-for="Modelo"></span>
+    </div>
+
+        <div>
+            <label asp-for="Marca"></label>
+            <input asp-for="Marca">
+            <span asp-validation-for="Marca"></span>
+        </div>
+
+        <div>
+            <label asp-for="Potencia"></label>
+            <input asp-for="Potencia">
+            <span asp-validation-for="Potencia"></span>
+        </div>
+
+
+        <div>
+            <label asp-for="Imagem"></label>
+            <input asp-for="Imagem">
+            <span asp-validation-for="Imagem"></span>
+        </div>
+
+        <div>
+            <label asp-for="Preco"></label>
+            <input asp-for="Preco">
+            <span asp-validation-for="Preco"></span>
+        </div>
+
+        <input type="submit" class="btn-danger">
+    </div>
+
+   
+
+</form>

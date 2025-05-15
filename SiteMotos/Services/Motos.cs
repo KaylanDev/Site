@@ -10,7 +10,7 @@ namespace SiteMotos.Services
     public class Motos : IMotos
     {
         private IEnumerable<MotosModelView> MotosVW { get; set; } = new List<MotosModelView>();
-        private Motos MotoVW { get; set; }
+        private MotosModelView MotoVW { get; set; }
 
         private const string BaseUrl = "/MotosM";
 
@@ -55,14 +55,47 @@ namespace SiteMotos.Services
             return MotosVW;
         }
 
-        public Task<MotosModelView> GetByIdAsync(int id)
+        public async Task<MotosModelView> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+
+            var client = _httpClientFactory.CreateClient("Motos");
+
+            using (var response = await client.GetAsync(BaseUrl + id))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStreamAsync();
+                    MotoVW = await JsonSerializer.DeserializeAsync<MotosModelView>(content, _options);
+
+                }
+                else
+                {
+                    _logger.LogError("Error fetching data from API");
+                    return null;
+                }
+            }
+            return MotoVW;
         }
 
-        public Task<MotosModelView> PostAsync(MotosModelView moto)
+        public async Task<MotosModelView> PostAsync(MotosModelView moto)
         {
-            throw new NotImplementedException();
+            var client = _httpClientFactory.CreateClient("Motos");
+
+            var content = new StringContent(JsonSerializer.Serialize(moto), System.Text.Encoding.UTF8, "application/json");
+            using (var response = await client.PostAsync(BaseUrl, content))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    var motoResponse = JsonSerializer.Deserialize<MotosModelView>(result, _options);
+                    return motoResponse;
+                }
+                else
+                {
+                    _logger.LogError("Error fetching data from API");
+                    return null;
+                }
+            }
         }
 
         public Task<bool> PutAsync(int id, MotosModelView moto)
