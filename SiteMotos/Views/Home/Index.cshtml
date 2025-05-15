@@ -149,8 +149,9 @@ else
                             </p><p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
                         </div>
                     </div>
-
+                    <a asp-controller="Home" asp-action="Put" asp-route-id="@element.Id" class="btn btn-primary">Alterar</a>
                 </div>
+                
             }
         </div>
     </div>
@@ -172,6 +173,7 @@ else
 
             // Realocar os itens invertidos no container
             $("#motoList").append(visibleItems);
+
         });
     });
 </script>

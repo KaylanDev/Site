@@ -4,6 +4,7 @@ using System.Security.AccessControl;
 using System.Text.Json;
 using System.Threading.Tasks;
 using SiteMotos.Models;
+using System.Text;
 
 namespace SiteMotos.Services
 {
@@ -60,7 +61,7 @@ namespace SiteMotos.Services
 
             var client = _httpClientFactory.CreateClient("Motos");
 
-            using (var response = await client.GetAsync(BaseUrl + id))
+            using (var response = await client.GetAsync(BaseUrl +$"/{id}"))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -98,9 +99,22 @@ namespace SiteMotos.Services
             }
         }
 
-        public Task<bool> PutAsync(int id, MotosModelView moto)
+        public async Task<bool> PutAsync(int id, MotosModelView moto)
         {
-            throw new NotImplementedException();
+            var client = _httpClientFactory.CreateClient("Motos");
+            
+
+            using (var response = await client.PutAsJsonAsync(BaseUrl + $"/{id}",moto))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                    
+                }
+                _logger.LogError("n foi possivel alterar a entidade");
+                return false;
+            }
+
         }
     }
 }

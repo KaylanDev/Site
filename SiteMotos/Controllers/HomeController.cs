@@ -44,6 +44,30 @@ namespace SiteMotos.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> Put(int id)
+        {
+            var moto = await _motos.GetByIdAsync(id);
+            if (moto is null)
+            {
+                return NotFound();
+            }
+            return View(moto);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Put(int id,MotosModelView moto)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _motos.PutAsync(id,moto);
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
