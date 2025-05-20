@@ -69,6 +69,32 @@ namespace SiteMotos.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var moto = await _motos.GetByIdAsync(id);
+            if (moto is null)
+            {
+                return NotFound();
+            }
+            return View(moto);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteCofirmed(int id)
+        {
+            if (id >= 1)
+            {
+                var response = await _motos.DeleteAsync(id);
+                if (response)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

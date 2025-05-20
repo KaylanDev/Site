@@ -30,9 +30,19 @@ namespace SiteMotos.Services
             };
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var client = _httpClientFactory.CreateClient("Motos");
+
+            using (var content = await client.DeleteAsync(BaseUrl + $"/{id}"))
+            {
+                if (content.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                _logger.LogError("Error deleting data from API");
+                return false;
+            }
         }
 
         public async Task<IEnumerable<MotosModelView>> GetAll()
