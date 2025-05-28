@@ -2,16 +2,16 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SiteMotos.Models;
-using SiteMotos.Services;
+using SiteMotos.Services.Motos;
 
 namespace SiteMotos.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMotos _motos;
+        private readonly IMotosService _motos;
         
-        public HomeController(ILogger<HomeController> logger,IMotos moto)
+        public HomeController(ILogger<HomeController> logger,IMotosService moto)
         {
             _logger = logger;
             _motos = moto;
