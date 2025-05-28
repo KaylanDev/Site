@@ -1,0 +1,21 @@
+﻿@model UserAuthViewModel
+
+<h1>Login</h1>
+
+
+<form  asp-controller="Auth" asp-action="Login" method="post">
+
+    <div class="form-check">
+        <label asp-for="Name"></label>
+    <input asp-for="Name"/>
+    </div>
+
+
+    <div class="form-check">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <button type="submit" class="btn btn-outline-dark"> Login</button>
+
+</form>

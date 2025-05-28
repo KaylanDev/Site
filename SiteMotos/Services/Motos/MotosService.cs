@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 using SiteMotos.Models;
 using System.Text;
 
-namespace SiteMotos.Services
+namespace SiteMotos.Services.Motos
 {
-    public class Motos : IMotos
+    public class MotosService : IMotosService
     {
         private IEnumerable<MotosModelView> MotosVW { get; set; } = new List<MotosModelView>();
         private MotosModelView MotoVW { get; set; }
 
-        private const string BaseUrl = "/MotosM";
+        private const string BaseUrl = "/motos";
 
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly JsonSerializerOptions _options;
-        private readonly ILogger<Motos> _logger;
+        private readonly ILogger<MotosService> _logger;
 
-        public Motos(IHttpClientFactory httpClientFactory, ILogger<Motos> logger)
+        public MotosService(IHttpClientFactory httpClientFactory, ILogger<MotosService> logger)
         {
             _httpClientFactory = httpClientFactory;
             _logger = logger;
@@ -92,7 +92,7 @@ namespace SiteMotos.Services
         {
             var client = _httpClientFactory.CreateClient("Motos");
 
-            var content = new StringContent(JsonSerializer.Serialize(moto), System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(moto), Encoding.UTF8, "application/json");
             using (var response = await client.PostAsync(BaseUrl, content))
             {
                 if (response.IsSuccessStatusCode)
